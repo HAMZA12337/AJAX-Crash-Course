@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+</head>
+
+<body>
+
+  <div id="demo">
+    <h2 id="seria">Let AJAX change this text</h2>
+    <button id="loadText">Change Content</button>
+    <div div>
+    </div>
+
+    <script>
+
+//  AJAX - The XMLHttpRequest Object
+      // Some Http status:
+      // 200 :"OK"
+      // 403 :"Foridden"
+      // 404 :"nOT FOUND
+
+      // Holds the status of the XMLHttpRequest.
+      // 0: request not initialized
+      // 1: server connection established
+      // 2: request received
+      // 3: processing request
+      // 4: request finished and response is ready
+
+      document.getElementById("loadText").addEventListener("click", loading);
+
+      function loading() {
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', 'ajax_info.txt', true);
+
+
+        //optional used for loader
+        // in the processing request 
+        xhr.onprogress = function () {
+          console.log('the state of your request is :', xhr.readyState);
+        }
+
+        xhr.onerror = function () {
+          console.log("Request Eroor");
+        }
+
+        xhr.onload = function () {
+          console.log("the state of your connection :", xhr.readyState)
+          if (this.status == 200) {
+
+            document.getElementById('seria').innerHTML = this.responseText;
+          }
+          if (this.status==404) {
+
+            document.getElementById('seria').innerHTML = 'not found';
+          }
+        }
+
+        //   xhr.onreadystatechange=function(){
+        //     console.log("the state of your connection :",xhr.readyState);
+        //  if(this.readyState==4 && this.status==403){
+        //   //  console.log(this.responseText);
+        //  }
+
+        //   }
+
+        xhr.send();
+
+      }
+
+
+
+    </script>
+</body>
+
+</html>
